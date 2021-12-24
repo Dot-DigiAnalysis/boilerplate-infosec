@@ -1,5 +1,18 @@
 const express = require('express');
 const app = express();
+// const express = require('express')
+const helmet = require('helmet')
+
+// const app = express()
+app.use(helmet())
+
+
+let ninetyDaysInSeconds = 90*24*60*60
+app.use(helmet.hsts({maxAge:90*24*60*60 , force: true}))
+app.use(helmet.dnsPrefetchControl())
+app.use(helmet.noCache())
+
+app.use(helmet.contentSecurityPolicy({ directives: { defaultSrc: ["'self'"], scriptSrc: ["'self'", "trusted-cdn.com"] }} ))
 
 
 
